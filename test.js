@@ -65,7 +65,7 @@ function cancelHandler(){
 	document.getElementById('popup-wrapper').className="hide";
 }
 function menuHandler(e){
-	var select = document.getElementsByClassName('select-menu');
+	/*var select = document.getElementsByClassName('select-menu');
 	
 	if(select[0]){
 		var select_menu = select[0];
@@ -78,7 +78,8 @@ function menuHandler(e){
 		}
 		dataValue = select_menu.className;
 		e.stopPropagation();
-	}
+	}*/
+	Select.collapseAllSelects(e);
 
 }
 function hideMenuHandler(){
@@ -141,9 +142,15 @@ Select.prototype.initialise = function() {
 
 	var boundMenuSelectionHandler = this.handleMenuSelection.bind(this);
 	this.newSelectMenu.addEventListener('click', boundMenuSelectionHandler, false);
+
+	//Add to collection of selects
+	Select.addToSelectCollection(this);
 }
 
 Select.prototype.expand = function(event) {
+	//First collapse all other selects
+	Select.collapseAllSelects(event);
+
 	var selectMenu = this.newSelectMenu;
 	if(selectMenu){
 		removeClass(selectMenu, 'hide');
@@ -199,6 +206,21 @@ Select.prototype.handleMenuSelection = function(event) {
 	//Trigger event on actual select
 	var event = new Event('change');
 	this.select.dispatchEvent(event);
+}
+
+Select.addToSelectCollection = function(select) {
+	if(!this.selects) {
+		this.selects = [];
+	}
+	this.selects.push(select);
+}
+
+Select.collapseAllSelects = function(event) {
+	if(this.selects) {
+		this.selects.forEach(function(select) {
+			select.collapse(event);
+		});
+	}
 }
 
 
