@@ -80,7 +80,7 @@ body{
     background-color: #fff;
     border-radius: 5px;
 }*/
-#popup-wrapper{
+.popup-wrapper{
 	position: fixed;
 	top: 0px;
 	bottom: 0px;
@@ -88,6 +88,9 @@ body{
 	right: 0px;
 	z-index: 1;
 	background: rgba(20,20,20,0.2);
+	display: grid;
+	place-items: center center;
+	margin: 0px;
 }
 .popup-layer{
     position: fixed;
@@ -98,31 +101,30 @@ body{
     //z-index: 2;
     background: rgba(20,20,20,0.2);*/
 }
-#popup-wrapper.hide, #popup_layer.hide{
+.popup-wrapper.hide, .popup-layer.hide{
 	display: none;
 }
-#popup-wrapper.show, #popup_layer.show{
+.popup-wrapper.show, .popup-layer.show{
 	display: block;
 }
 .popup-content{
 	width: 350px;
-    height: 150px;
-    margin: -75px auto;
+    //margin: -75px auto;
     position: relative;
-    top: 50%;
+    //top: 50%;
     background-color: #fff;
     border-radius: 5px;
 }
 .popup-content div{
 	text-align: center;
 }
-#popup-wrapper #cancel{
+.popup-wrapper .cancel{
 	padding: 5px;
 	margin: auto;
 	display: block;
 	margin-top: 70px;
 }
-#popup-wrapper #close{
+.popup-wrapper .close{
 	position: absolute;
     top: -10px;
     right: -10px;
@@ -133,6 +135,9 @@ body{
     height: 1.3em;
     line-height: 1.3em;
     border: 1px solid;
+}
+.show-item{
+
 }
 .show{
 	display: block;
@@ -230,16 +235,21 @@ li{
     list-style: none;
 
 }
-#send{
-	position: absolute;
-    top: 80px;
-    right: 300px;
+.clock .menu-container{
+
+}
+.clock #select-menu{
+
+}
+.clock .menu{
+	width: 64px;
 }
 .menu-container{
 	-webkit-user-select: none;  /* Chrome all / Safari all */
 	-moz-user-select: none;     /* Firefox all */
 	-ms-user-select: none;      /* IE 10+ */
 	user-select: none;
+	display: inline-block;
 }
 #select-menu{
 	position: absolute;
@@ -300,6 +310,19 @@ li{
 }
 .menu li.selected {
 	background-color: #167de0;
+}
+.popup-content .header {
+	padding: 5px 0px;
+    background-color: #CCCCCC;
+    border-radius: 5px 5px 0px 0px;
+    position: relative;
+    width: 350px;
+}
+.popup-content .popup-message {
+	padding: 5px;
+	height: 150px;
+    max-height: 200px;
+    overflow: scroll;
 }
 
 @media screen and (min-width: 320px) and (max-width: 480px){

@@ -1,86 +1,117 @@
 window.addEventListener('load', onload);
 window.addEventListener('click', hideMenuHandler);
+var newPopupContainer , popupWindowContainer;
+var transPopup, confirmPopup, userCreatePopup;
+var currentTime;
 
 function onload(){
-	var send = document.getElementById('send');
-	send.addEventListener("click", sendHandler, false);
-	var cancel = document.getElementById('cancel');
-	cancel.addEventListener('click', cancelHandler, false);
-	var close = document.getElementById('close');
-	close.addEventListener('click', cancelHandler, false);
-	var popupclose = document.getElementById('popup_layer');
-	popupclose.addEventListener('click', cancelHandler);
-
-	
-	/*var select_value = document.getElementById('select_value');
-	select_value.addEventListener('click', menuHandler, true);
-	var menu = document.getElementById('menu');
-	menu.addEventListener('click', menuHandler, true);
-	var select = document.getElementsByClassName('select-menu');*/
-	/*if(select[0]){
-		select[0].addEventListener('click', selectHandler, true);
-	}*/
-
+	// clock 
+	//*************//
+	var clock = ['hours', 'minutes', 'seconds'];
+	var time = ['hh', 'mm', 'ss'];
+	var clockHours = document.getElementsByClassName('hh')[0];
+	for(var i = 0, len = clock.length; i < len; i++){
+		var clockTime = document.getElementsByClassName(time[i])[0];
+		clockHandler(clock[i], clockTime);
+	}
+	hours.addEventListener('change', currentClockTime, false);
+	minutes.addEventListener('change', currentClockTime, false);
+	seconds.addEventListener('change', currentClockTime, false);
+	//************//
 	var selects = document.getElementsByTagName('select');
 	for(var i = 0, len = selects.length; i < len; i++) {
 		var select = selects[i];
 		new Select(select);
 	}
+	transactionPopup = new PopupWindow('Transaction', document.getElementById('trans_popup'));
+	confirmPopup = new PopupWindow('Confirm', document.getElementById('save_confirm'));
+	userCreatePopup = new PopupWindow('New User', document.getElementById('user_create'));
+	userdetails = new PopupWindow('User Details', document.getElementById('user_details'));
+	popupWindowContainer = new PopupWindow();
 
+	document.getElementById('showTrans').addEventListener('click', function(e) {
+		transactionPopup.showPopup(e);
+	}, false);
+	document.getElementById('showConfirm').addEventListener('click', function(e) {
+		confirmPopup.showPopup(e);
+	}, false);
+	document.getElementById('showUserCreate').addEventListener('click', function(e) {
+		userCreatePopup.showPopup(e);
+	}, false);
+	document.getElementById('popupMessage').addEventListener('click', function(e){
+		popupWindowContainer.popupWindowMessage(document.getElementById('data').value);
+		data.value = '';
+	}, false);
+	document.getElementById('showUserDetails').addEventListener('click', function(e){
+		userdetails.showPopup(e);
+	}, false);
+	document.getElementById('showMessage').addEventListener('click', function(e){
+		popupWindowContainer.popupWindowMessage(document.getElementById('pop_message').value);
+		pop_message.value = '';
+	}, false);
 	first_select.addEventListener('change', function(event) {
 		console.log(first_select.value);
 	}, false);
-	second_select.addEventListener('change', function(event) {
+	second_select.addEventListener('change', function() {
 		console.log(second_select.value);
 	}, false);
-}
-function selectHandler(e){
-	var option = e.target;
-	//var optionValue = option.innerText;
-	var optionValue = option.getAttribute('value');
-	var parent = option.parentElement;
-	if(option.tagName.toLowerCase() != "li"){
-		e.stopPropagation();
-		e.preventDefault();
-		return;
-	}
-	if(parent) {
-		var arr = parent.getElementsByClassName('selected');
-		for(var i = 0, length = arr.length; i < length; i++){
-			arr[i].className = arr[i].className.replace('selected', '');
-		}
-	}
-	if(option.className.indexOf('selected') == -1){
-		option.className += ' selected';
-	}
-	var select_value = document.getElementById('select_value');
-	select_value.innerText = optionValue;
-	menuHandler(e);
-}
-function sendHandler(){
-	document.getElementById('popup-wrapper').className="show";
-	document.getElementById('popup_layer').className = "popup-layer show";
-}
-function cancelHandler(){
-	document.getElementById('popup-wrapper').className="hide";
-}
-function menuHandler(e){
-	/*var select = document.getElementsByClassName('select-menu');
-	
-	if(select[0]){
-		var select_menu = select[0];
-		var className = select_menu.className;
-		if(className.indexOf('show') != -1) {
-			select_menu.className = 'select-menu hide';
-		}
-		else {
-			select_menu.className = 'select-menu show';
-		}
-		dataValue = select_menu.className;
-		e.stopPropagation();
-	}*/
-	Select.collapseAllSelects(e);
+/*
 
+	transPopup = new Popup('Trasaction', document.getElementById('trans_popup'));
+	confirmPopup = new Popup('Confirm', document.getElementById('save_confirm'));
+	userCreatePopup = new Popup('New User', document.getElementById('user_create'));
+	genericPopup = new Popup();
+	document.getElementById('showTrans').addEventListener('click', function(e) {
+		transPopup.showPopup(e);
+	}, false);
+	document.getElementById('showConfirm').addEventListener('click', function(e) {
+		confirmPopup.showPopup(e);
+	}, false);
+	document.getElementById('showUserCreate').addEventListener('click', function(e) {
+		userCreatePopup.showPopup(e);
+	}, false);
+	document.getElementById('showMessage').addEventListener('click', function(e) {
+		genericPopup.showMessage(document.getElementById('pop_message').value);
+	}, false);
+*/
+}
+function currentClockTime(){
+	
+	var clock = document.getElementsByClassName('clock')[0];
+	var hours = clock.getElementsByClassName('select_value')[0];
+	var minutes = clock.getElementsByClassName('select_value')[1];
+	var seconds = clock.getElementsByClassName('select_value')[2];
+	if(hours && minutes && seconds){
+		var currentClockTime = ''+hours.innerText+':'+minutes.innerText+':'+seconds.innerText;
+		console.log(currentClockTime);
+		if(hours.innerText !== 'HH' && minutes.innerText !== 'MM' && seconds.innerText !== 'SS'){
+			popupWindowContainer.popupWindowMessage(currentClockTime);
+		}
+	}
+}
+function clockHandler(clock, clockTime){
+	var el = '<option value="HH">HH</option>';
+	if(clock == 'hours'){
+		for(var i = 1,len = 24; i <= len; i++){
+			el += '<option value=""'+i+'>'+i+'</option>';
+			
+		}
+		clockTime.innerHTML = el;
+	}
+	if(clock == 'minutes'){
+		el = '<option value="MM">MM</option>';
+		for(var i = 1,len = 60; i <= len; i++){
+			el += '<option value=""'+i+'>'+i+'</option>';
+		}
+		clockTime.innerHTML = el;
+	}
+	if(clock == 'seconds'){
+		el = '<option value="SS">SS</option>';
+		for(var i = 1,len = 60; i <= len; i++){
+			el += '<option value=""'+i+'>'+i+'</option>';
+		}
+		clockTime.innerHTML = el;
+	}
 }
 function hideMenuHandler(){
 	var selects = document.getElementsByClassName('select-menu');
@@ -90,182 +121,71 @@ function hideMenuHandler(){
 		addClass(select, 'hide');
 	}
 }
-
-
-
-
-
-
-
-function Select(el) {
-	this.select = el;
-	this.template = '<div class="menu">\
-						<div class="select_value"></div>\
-						<div class="arrow-container">\
-							<span class="icon-arrow-down"></span>\
-						</div>\
-						<ul class="select-menu hide">\
-						</ul>\
-					</div>'
-	this.initialise();
+function PopupWindow(header, element) {
+	
+	this.template = '<div class="header">\
+						<label>popup</label>\
+					</div>\
+					<div class="close">X</div>'
+					
+	this.initialise(header, element);
 }
-
-Select.prototype.initialise = function() {
-	//Create new select box DOM
-	this.select.style.display = 'none';
-	this.parentEl = this.select.parentElement;
-	var menuContainer = document.createElement('div');
-	menuContainer.className = 'menu-container';
-	menuContainer.innerHTML = this.template;
-	this.newSelect = this.parentEl.insertBefore(menuContainer, this.select);
-	this.newSelectMenu = this.newSelect.getElementsByClassName('select-menu')[0];
-	this.newSelectValue = this.newSelect.getElementsByClassName('select_value')[0];
-	this.newSelectArrow = this.newSelect.getElementsByClassName('arrow-container')[0];
-
-	//Create new select box options and copy the actual options values and text
-	var options = this.select.getElementsByTagName('option');
-	for(var i = 0, len = options.length; i < len; i++) {
-		var option = options[i];
-		var newOption = document.createElement('li');
-		newOption.setAttribute('value', option.getAttribute('value'));
-		newOption.innerText = option.innerText;
-		this.newSelectMenu.appendChild(newOption);
+PopupWindow.prototype.initialise = function(header, element){
+	
+	if(!PopupWindow.popupWrapper){
+		PopupWindow.popupWrapper = document.createElement('div');
+		PopupWindow.popupWrapper.className = 'popup-wrapper hide';
+		document.body.appendChild(PopupWindow.popupWrapper);
 	}
-	if(options[0]) {
-		this.newSelectValue.innerText = options[0].innerText;
+	if(!PopupWindow.popupLayer){
+		PopupWindow.popupLayer = document.createElement('div');
+		PopupWindow.popupLayer.className = 'popup-layer';
+		PopupWindow.popupWrapper.appendChild(PopupWindow.popupLayer);
 	}
+	this.popupContent = document.createElement('div');
+	this.popupContent.className = 'popup-content hide';
+	this.popupContent.innerHTML = this.template;
+	this.popupHeader = this.popupContent.getElementsByTagName('label')[0];
+	if(header){
+		this.popupHeader.innerText = header;
+	}
+	if(!element){
+		element = document.createElement('div');
+		element.className = 'popup-message';
+		this.popupMessage = element;
+	}
+	this.popupContent.appendChild(element);
+	PopupWindow.popupWrapper.appendChild(this.popupContent);
+	this.popupClose = this.popupContent.getElementsByClassName('close')[0];
 
-	//Attach event handlers
-	var boundToggle = this.toggle.bind(this);
-	this.newSelectValue.addEventListener('click', boundToggle, false);
-	this.newSelectArrow.addEventListener('click', boundToggle, false);
+	var boundClosePopupHandler = this.closePopupHandler.bind(this);
+	this.popupClose.addEventListener('click', boundClosePopupHandler, false);
+	PopupWindow.popupLayer.addEventListener('click', boundClosePopupHandler, false);
 
-	var boundMenuSelectionHandler = this.handleMenuSelection.bind(this);
-	this.newSelectMenu.addEventListener('click', boundMenuSelectionHandler, false);
-
-	//Add to collection of selects
-	Select.addToSelectCollection(this);
 }
-
-Select.prototype.expand = function(event) {
-	//First collapse all other selects
-	Select.collapseAllSelects(event);
-
-	var selectMenu = this.newSelectMenu;
-	if(selectMenu){
-		removeClass(selectMenu, 'hide');
-		addClass(selectMenu, 'show');
+PopupWindow.prototype.closePopupHandler = function(e){ 	 
+	if(PopupWindow.popupWrapper) {
+		PopupWindow.popupWrapper.className = "popup-wrapper hide";	
 	}
-	event.stopPropagation();
-}
-
-Select.prototype.collapse = function(event) {
-	var selectMenu = this.newSelectMenu;
-	if(selectMenu){
-		removeClass(selectMenu, 'show');
-		addClass(selectMenu, 'hide');
+	if(this.popupContent) {
+		this.popupContent.className = "popup-content hide";
 	}
-	event.stopPropagation();
+	e.preventDefault();
+	e.stopPropagation();
 }
-
-Select.prototype.toggle = function(event) {
-	var selectMenu = this.newSelectMenu;
-	if(selectMenu){
-		if(hasClass(selectMenu, 'show')) {
-			this.collapse(event);
-		}
-		else {
-			this.expand(event);
-		}
+PopupWindow.prototype.showPopup = function() {
+	if(PopupWindow.popupWrapper) {
+		PopupWindow.popupWrapper.className = 'popup-wrapper show-item';
 	}
-	event.stopPropagation();
+	if(this.popupContent) {
+		this.popupContent.className = 'popup-content show';
+	}
 }
-
-Select.prototype.handleMenuSelection = function(event) {
-	var option = event.target;
-	var optionText = option.innerText;
-	var optionValue = option.getAttribute('value');
-	var parent = this.newSelectMenu;
-	if(option.tagName.toLowerCase() != "li"){
-		e.stopPropagation();
-		e.preventDefault();
+PopupWindow.prototype.popupWindowMessage = function(message){
+	
+	if(!this.popupMessage){
 		return;
 	}
-	if(parent) {
-		var arr = parent.getElementsByClassName('selected');
-		for(var i = 0, length = arr.length; i < length; i++){
-			removeClass(arr[i], 'selected');
-		}
-	}
-	addClass(option, 'selected');
-	var select_value = this.newSelectValue;
-	select_value.innerText = optionText;
-	this.select.value = optionValue;
-	this.collapse(event);
-
-	//Trigger event on actual select
-	var event = new Event('change');
-	this.select.dispatchEvent(event);
+	this.showPopup();
+	this.popupMessage.innerText = message;
 }
-
-Select.addToSelectCollection = function(select) {
-	if(!this.selects) {
-		this.selects = [];
-	}
-	this.selects.push(select);
-}
-
-Select.collapseAllSelects = function(event) {
-	if(this.selects) {
-		this.selects.forEach(function(select) {
-			select.collapse(event);
-		});
-	}
-}
-
-
-
-/**************************************************************/
-//Utility functions
-/**************************************************************/
-
-function addClass(el, className) {
-	if(!hasClass(el, className)) {
-		el.className += ' '+className;
-	}
-}
-function removeClass(el, className) {
-	if(hasClass(el, className)) {
-		el.className = el.className.replace(className, '');
-	}
-}
-function hasClass(el, className) {
-	return el.className.indexOf(className) != -1;
-}
-function toggleClass(el, className) {
-	if(hasClass(el, className)) {
-		removeClass(el, className);
-	}
-	else {
-		addClass(el, className);
-	}
-}
-function addChildClass(el, selector, className) {
-	var children = el.getElementsByClassName(selector);
-	for(var i = 0, len = children.length; i < len; i++) {
-		addClass(children[i], className);
-	}
-}
-function removeChildClass(el, selector, className) {
-	var children = el.getElementsByClassName(selector);
-	for(var i = 0, len = children.length; i < len; i++) {
-		removeClass(children[i], className);
-	}
-}
-function toggleChildClass(el, selector, className) {
-	var children = el.getElementsByClassName(selector);
-	for(var i = 0, len = children.length; i < len; i++) {
-		toggleClass(children[i], className);
-	}
-}
-/**************************************************************/

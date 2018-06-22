@@ -3,18 +3,68 @@
 		<title>test</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link type="text/css" rel="stylesheet" media="all" href="./test.css" />
+		<script type="text/javascript" src="./utils.js"></script>
+		<script type="text/javascript" src="./select.js"></script>
+		<script type="text/javascript" src="./popup.js"></script>
 		<script type="text/javascript" src="./test.js"></script>
 	</head>
 	<body>
-		<div id="popup-wrapper" class="hide">
-			<div id="popup_layer" class="popup-layer hide"></div>
-			<div class="popup-content">
-				<div>
-					<label>popup</label>
-				</div>
-				<div id="close">X</div>
-				<button id="cancel">Cancel</button>
+		<div class="hide">
+			<div id="trans_popup" class="popup-message">
+				<div>Hello, its looks you did not compete the transaction!!</div>
+				<div>Do you really want to close the window?</div>
+				<button>Yes</button><button>No</button>
 			</div>
+			<div id="save_confirm" class="popup-message">
+				<div>File is not saved, do you want to save it?</div>
+				<button>Yes</button><button>No</button>
+			</div>
+			<div id="user_create" class="popup-message">
+				<label for="name">Name</label><input id="name" name="name"/>
+				<label for="email">Email</label><input id="email" name="email"/>
+				<button>Submit</button>
+			</div>
+			<div id="user_details" class="popup-message">
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
+				<label> data </label><label> data </label><label> data </label>
 			</div>
 		</div>
 		<div class="navigation-container">
@@ -76,80 +126,57 @@
 		</div>
 		<div class="page-container">
 			<label>page</label>
+			<div>
+				<input type="text" id="data" />
+				<button id='popupMessage'>popup</button>
+			</div>
+			<div>
+				<input id="pop_message" class="inputText" type='text' value='' />
+				<button id="showMessage" >Show Popup</button>
+				<button id='showTrans'>Trasaction cancel popup</button>
+				<button id='showConfirm'>Confirm window</button>
+				<button id='showUserCreate'>Show user create</button>
+				<button id="showUserDetails">Show user Details</button>
+			</div>
 			<select id='first_select'>
 				<option value="select">Select1</option>
-				<option value="Coffee">Coffee1</option>
-				<option value="Tea">Tea1</option>
-				<option value="Juice">Juice1</option>
+				<option value="Coffee">Coffee</option>
+				<option value="Tea">Tea</option>
+				<option value="Juice">Juice</option>
 				<option value="Ice cream">Ice cream1</option>
 			</select>
 			<select id='second_select'>
-				<option value="select">Select1</option>
+				<option value="select">Select2</option>
 				<option value="Biscuit">Biscuit</option>
 				<option value="Chocolate">Chocolate</option>
 				<option value="Cookie">Cookie</option>
 				<option value="Cake">Cake</option>
 			</select>
 			<select>
-				<option value="select">Select1</option>
-				<option value="Coffee">Coffee1</option>
-				<option value="Tea">Tea1</option>
-				<option value="Juice">Juice1</option>
+				<option value="select">Select3</option>
+				<option value="Coffee">Coffee</option>
+				<option value="Tea">Tea</option>
+				<option value="Juice">Juice</option>
 				<option value="Ice cream">Ice cream1</option>
 			</select>
 			<select>
-				<option value="select">Select1</option>
-				<option value="Biscuit">Biscuit</option>
+				<option value="select">Select4</option>
+				<option value="Biscuit">Biscui</option>
 				<option value="Chocolate">Chocolate</option>
 				<option value="Cookie">Cookie</option>
 				<option value="Cake">Cake</option>
 			</select>
-			
-			<button id="send">Click</button>
-
+			<div class="clock">
+				<select id="hours" class="hh">
+					<option value="select">HH</option>
+				</select>
+				<select id="minutes" class="mm">
+					<option value="select">MM</option>
+				</select>
+				<select id="seconds" class="ss">
+					<option value="select">SS</option>
+				</select>
+			</div>
 		</div>
 	</body>
-	<style>
-
-		/*.popup-wrapper {
-			position: fixed;
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: 0;
-		}
-		.popup-wrapper {
-			position: fixed;
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: 0;
-			background-color: rgba(0,0,0, 0.5);
-		}
-		.popup-content-wrapper {
-			width: 500px;
-			max-width: 70%;
-			padding: 20px;
-			background-color: #fff;
-			border-radius: 10px; 
-			margin: 0 auto;
-			margin-top: 100px;
-			position: relative;;
-		}
-		.close-icon {
-			position: absolute;;
-			top: -10px;
-			right: -10px;
-			width: 30px;
-			height: 30px;
-			text-align: center;
-			background-color: #f1f1f1;
-			border-radius: 50%;
-			line-height: 30px;
-			border: 1px solid #333;
-		}
-		.hide-cross .close-icon{
-			display: none;
-		}*/
-	</style>
 </html>
